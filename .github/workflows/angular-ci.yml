@@ -24,11 +24,9 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Navigate to music-frontend folder
-        run: cd music-frontend
-
       - name: Build Angular project
         run: npm run build
+        working-directory: music-frontend
 
       - name: Run tests
         run: npm run test -- --watch=false
