@@ -1,0 +1,136 @@
+<div class="container-sm">
+    <br>
+    <div class="row container-sm">
+        <h4> Create Employee </h4>
+    </div>    
+    
+    <form>
+    
+        <div class="row">
+
+        <div class="col-sm">
+            <br>
+            <div class=" form-group mb-3">
+                <label for="name" class="form-label" aria-describedby="firstname">First Name</label>
+                <input type="text" name="firstname" class="form-control" id="name" aria-describedby="firstname"  [(ngModel)]="fac.firstName" value="" required>
+            </div>
+
+            <div class=" form-group mb-3">
+                <label for="gname" class="form-label">Last Name</label>
+                <input type="text" name="lastname" class="form-control" id="name" aria-describedby="gname" [(ngModel)]="fac.lastName">
+            </div>
+
+            <div class=" form-group mb-3">
+                <label for="mobilenum" class="form-label">Mobile No.</label>
+                <input type="text" name="mobilenumber" class="form-control" id="mobilenum" aria-describedby="mobilenum" [(ngModel)]="fac.mobileNumber">
+            </div>
+
+            <div class=" form-group mƒocci-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" name="email" class="form-control" id="email" aria-describedby="email" [(ngModel)]="fac.email">
+            </div>
+
+        </div>
+
+        <div class="col-sm">
+            <br>
+
+            <div class="mb-3">
+                <label for="occu" class="form-label" aria-describedby="occu">Occupation</label>
+                <select class="selectpicker form-control col-sm" id="occu" aria-describedby="occu"
+                    data-style='btn-outline-primary' [(ngModel)]="fac.occupation">
+
+                    <option selected>Choose...</option>
+                    <option class="form-control">Working</option>
+                    <option>Student</option>
+                    <option>Musician</option>
+                    <option>Others</option>
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="occu" class="form-label" aria-describedby="days">Preferred days</label>
+                <select class="selectpicker form-control col-sm" id="days" [(ngModel)]="fac.preferredDays" aria-describedby="occu"
+                    data-style='btn-outline-primary' multiple>
+
+                    <option>Monday</option>
+                    <option>Tuesday</option>
+                    <option>Wednesday</option>
+                    <option>Thursday</option>
+                    <option>Friday</option>
+                    <option>Saturday</option>
+                    <option>Sunday</option>
+
+                </select>
+            </div>
+
+
+        </div>
+
+
+        <div class="col-sm">
+            <br>
+
+            <div class="mb-3">
+                <label for="occu" class="form-label" aria-describedby="occu">Skill</label>
+                <select class="selectpicker form-control col-sm" id="occu" [(ngModel)]="fac.skill" [(ngModel)]="fac.skill" aria-describedby="occu"
+                    data-style='btn-outline-primary' multiple>
+
+                    <option>Vocal</option>
+                    <option>Flute</option>
+                    <option>Violin</option>
+                    <option>Mridangam</option>
+                    <option>Veena</option>
+                    <option>Tabla</option>
+                    <option>Bharathanatyam</option>
+                    <option>Kuchipudi</option>
+
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label for="occu" class="form-label" aria-describedby="days">Preferred Time</label>
+                <select class="selectpicker form-control col-sm" id="days" [(ngModel)]="fac.preferredTime" aria-describedby="occu"
+                    data-style='btn-outline-primary' multiple>
+
+                    <option>Mornings</option>
+                    <option>Evenings</option>
+
+                </select>
+            </div>
+
+        </div>
+
+
+        <div class="col-sm">
+
+            <br>
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">Comments</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="8" [(ngModel)]="fac.comments" ></textarea>
+            </div>
+
+            <br><br><br>
+
+        </div>
+
+    </div>
+    <br>
+    <br>
+    <div class="container row">
+        <div class="col-sm mb-3">
+            <input value="Clear" type="button" class="btn btn-danger " id="exampleCheck1">
+        </div>
+
+        <div class="container col-sm mb-3">
+            <span class="alert alert-success" > Save success! </span>
+            <span class="alert alert-danger" *ngIf='errorcomponent'> Error during save. Please try again or contact support! </span>
+        </div>
+
+        <div class="mb-3 float-right">            
+            <input value="Save" type="button" class="btn btn-primary" id="exampleCheck2" (click)="addFaculty()">
+        </div>
+    </div>
+</form>
+
+</div>

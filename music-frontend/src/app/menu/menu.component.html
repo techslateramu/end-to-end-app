@@ -1,0 +1,83 @@
+<!-- <mat-progress-spinner value=40></mat-progress-spinner> -->
+<!-- <mat-spinner></mat-spinner> -->
+<header>
+  <nav name='nav-menu-123' class="navbar fixed-top navbar-expand-md navbar-dark bg-info">
+      <img src="assets/tms1.png" alt = "TMS"> 
+        <div class=navbar-brand>
+          <a routerLink="/welcome" class="nav-link">Tution Management System v1.0</a>
+        </div>
+        
+
+        
+          <ul class="navbar-nav navbar-collapse justify-content-center">
+    
+                <div *ngIf="auth.isUserLoggedIn()" ngbDropdown class="nav-link">
+                  <button class="btn btn-info" id="dropdownStudent" ngbDropdownToggle >Student</button>
+                  <div ngbDropdownMenu aria-labelledby="dropdownStudent">
+                    <!-- <button ngbDropdownItem routerLink="/studentenquiry">Enquiry</button> -->
+                    <button ngbDropdownItem routerLink="/addstudent">Add Student</button>
+                    <button ngbDropdownItem routerLink="/liststudent">List Student</button>
+                    <!-- <button ngbDropdownItem routerLink="/payfee">Pay Fee</button> -->
+                  </div>
+                </div>
+   
+                <div *ngIf="auth.isUserLoggedIn()" ngbDropdown class="nav-link">
+                  <button class="btn btn-info" id="dropdownFaculty" ngbDropdownToggle>Employee</button>
+                  <div ngbDropdownMenu aria-labelledby="dropdownFaculty">
+                    <button ngbDropdownItem routerLink="/addemployee">Add Employee</button>
+                    <button ngbDropdownItem routerLink="/editemployee" > List Employee</button>
+                  </div>
+                </div>
+
+                <div *ngIf="auth.isUserLoggedIn()" ngbDropdown class="nav-link">
+                  <button class="btn btn-info" id="dropdownBatch" ngbDropdownToggle>Admin</button>
+                  <div ngbDropdownMenu aria-labelledby="dropdownBatch">
+                    <button ngbDropdownItem routerLink="/addbatch">Add Batch</button>
+                    <button ngbDropdownItem routerLink="/listbatch">Edit Batch</button>                    
+                    <button ngbDropdownItem routerLink="/addmastercourse">Add More...</button>
+                    <!-- <button ngbDropdownItem routerLink="/addexpense">Add Expense</button> -->
+
+
+                  </div>
+                  
+                </div>
+
+                <div *ngIf="auth.isUserLoggedIn()" ngbDropdown class="nav-link">
+                  <button class="btn btn-info" id="dropdownReports" ngbDropdownToggle>Reports</button>
+                  <div ngbDropdownMenu aria-labelledby="dropdownReports">
+                    <button ngbDropdownItem routerLink="/dailystatus">Daily Status</button>
+                    <button ngbDropdownItem routerLink="/monthlystatus">Monthly Status</button>
+                    <button ngbDropdownItem routerLink="/feedues">Fee Dues</button>
+                    <button ngbDropdownItem routerLink="/facultyreport">Faculty Report</button>
+                  </div>
+                </div>
+                
+                <div *ngIf="auth.isUserLoggedIn()" ngbDropdown class="nav-link">
+                  <button class="btn btn-info" id="dropdownHelp" ngbDropdownToggle>Help</button>
+                  <div ngbDropdownMenu aria-labelledby="dropdownHelp">
+                    <button ngbDropdownItem routerLink="/tool">Tool</button>
+                    <button ngbDropdownItem routerLink="/about">About</button>
+                    <button ngbDropdownItem routerLink="/contact">Contact</button>                    
+                  </div>
+                </div>
+
+                
+
+          
+            <!-- <li><a *ngIf="auth.isUserLoggedIn()" routerLink="/student" class="nav-link">Student</a></li> -->
+        </ul>
+
+        <!-- <ul class="navbar-nav navbar-collapse justify-content-center">
+            <input *ngIf="auth.isUserLoggedIn()" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <li><a *ngIf="auth.isUserLoggedIn()" routerLink="/search" class="nav-link btn-secondary">Search</a></li>            
+        </ul> -->
+        
+        <ul class="navbar-nav navbar-collapse justify-content-end">
+          <li><a *ngIf="auth.isUserLoggedIn()" routerLink="/logout" class="nav-link">Logout</a></li>
+          <li><a *ngIf="!auth.isUserLoggedIn()" routerLink="/login" class="nav-link">Login</a></li>
+      </ul>
+
+    </nav>
+
+</header>
+

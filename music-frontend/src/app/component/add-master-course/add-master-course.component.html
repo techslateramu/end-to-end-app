@@ -1,0 +1,53 @@
+<br>
+
+<div class="container">
+    <h1>
+        {{pageHeader}}
+    </h1>
+</div>
+
+<form #addMasterCourseForm="ngForm">
+    
+    <mat-tab-group>    
+        <mat-tab label = "Add Course">
+            <div class="row container"> 
+            <div class="col"> 
+            </div>        
+            <div class="col-sm"> 
+                <div class="form-group"> 
+                <label for="courseName">Course Name</label><small> *</small>
+                    <input [(ngModel)]="masterCourse.courseName" name="courseName" #courseName="ngModel" id="courseName" type="text"
+                        class="form-control" required>
+                    <div class="alert float-right text-danger">
+                        <small [class.d-none]="courseName.valid || courseName.untouched">Required *</small>
+                    </div>
+                </div>
+
+            </div>            
+            <div class="form-group col"> 
+                <label for="courseFee">Fee</label><small> *</small>
+                    <input [(ngModel)]="masterCourse.courseFee" name="courseFee" #courseFee="ngModel" id="courseFee" type="text"
+                        class="form-control" required>
+                    <div class="alert float-right text-danger">
+                        <small [class.d-none]="courseFee.valid || courseFee.untouched">Required *</small>
+                    </div>
+            </div>    
+            
+            <div class="form-group">
+                <div class="col-sm">
+                    <label for="submit"></label>
+                    <small *ngIf="addMasterCourseForm.form.invalid"> Fill mandatory data</small>
+                    <button [disabled]="addMasterCourseForm.form.invalid"  id="submit" class=" form-control button btn-primary" (click)="addMasterCourse();addMasterCourseForm.reset({});"> Add Course </button>
+                </div>    
+            </div>    
+
+            <div class="col"> 
+            </div>   
+        </div>
+    </mat-tab>
+
+    <mat-tab label = "Add Expense">
+    </mat-tab>
+
+</mat-tab-group>
+</form>

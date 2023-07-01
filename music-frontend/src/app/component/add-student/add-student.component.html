@@ -1,0 +1,430 @@
+<br>
+<h1> {{pageHeader}}  </h1>
+
+<form #addStudentForm="ngForm" >  
+
+<mat-tab-group>    
+    <mat-tab label = "General">
+        <br>      
+        <!-- ROW CONTAINER STARTS -->
+
+        <div class="row container">  
+
+            <div class="col-sm-1">               
+            </div>
+
+            <div class="col-sm-3">               
+                <div class="form-group">
+                    <label for="firstName">First Name</label><small> *</small>
+                    <input [(ngModel)]="student.firstName" name="firstName" #firstName="ngModel" id="firstName" type="text" class="form-control" required>
+                    <div class="alert float-right text-danger"> <small [class.d-none]="firstName.valid || firstName.untouched">Required *</small> </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="lastName">Last Name</label><small> *</small>
+                    <input [(ngModel)]="student.lastName" name="lastName" #lastName="ngModel" id="lastName" type="text" class="form-control" required>
+                    <div class="alert float-right text-danger"> <small [class.d-none]="lastName.valid || lastName.untouched">Required *</small></div>
+                </div>
+
+                <div class="form-group">
+                    <label for="mobileNumber">Mobile Number</label><small> *</small>
+                    <input [(ngModel)]="student.mobileNumber" name="mobileNumber" #mobileNumber="ngModel" id="mobileNumber" type="tel" pattern="^\d{10}$" class="form-control" required>
+                    <div class="alert float-right text-danger"> <small [class.d-none]="mobileNumber.valid || mobileNumber.untouched">Should be 10 digit number*</small> </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Id</label><small> *</small>
+                    <input [(ngModel)]="student.email" name="email" #email="ngModel" id="email" type="email" pattern="^\S+@\S+\.\S+$" class="form-control" required>
+                    <div class="alert float-right text-danger"> <small [class.d-none]="email.valid || email.untouched">Valid email id *</small> </div>
+                </div>                     
+            </div>
+
+            <div class="col-sm-3">   
+            
+                <div class="form-group">
+                    <label for="gName">Parent/Guardian Name</label><small> *</small>
+                    <input [(ngModel)]="student.gName" name="gName" #gName="ngModel" id="gName" type="text" class="form-control" required>
+                    <div class="alert float-right text-danger"> <small [class.d-none]="gName.valid || gName.untouched">Required *</small> </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="doj">Date of Admission</label><small> *</small>
+                    <input [(ngModel)]="student.doj" name="doj" #doj="ngModel" id="doj" type="date" placeholder="MM/DD/YYYY" class="form-control" required>
+                    <div class="alert float-right text-danger">  <small [class.d-none]="doj.valid || doj.untouched">Required *</small> </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="occupation">Occupation</label><small> *</small>
+                    <select [(ngModel)]="student.occupation" #occupation="ngModel" name="occupation" id="occupation" class="selectpicker form-control" required>
+                        <option selected></option>  <option>Working</option>  <option>Student</option>  <option>Others</option>
+                    </select>
+                    <div class="alert float-right text-danger"> <small [class.d-none]="occupation.valid || occupation.untouched ">Required *</small>  </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="status">Status</label><small> *</small>
+                    <select [(ngModel)]="student.status" #status="ngModel" name="status" id="status" class="selectpicker form-control" required>
+                        <option selected>Active</option>  <option>In-Active</option>
+                    </select>
+                    <div class="alert float-right text-danger"> <small [class.d-none]="status.valid || status.untouched ">Required *</small>  </div>
+                </div>
+            </div>                  
+        </div>
+    <!-- ROW CONTAINER END -->
+    </mat-tab>
+    <!-- MAT TAB - GENERAL -->
+
+    
+    <mat-tab label = "Enroll Courses">
+        <br>
+        <div class="row container">              
+            <div class="col-sm-1">              
+            </div>
+
+            <div class="col-sm-6 border bg-light">              
+                <form #addCoursesForm="ngForm">  
+                    <div class="row"> 
+                        <div class="col-sm-5 form-group"> <label for="submit"></label><h2>Enroll Courses</h2> </div>
+                        <div class="col-sm-5"></div> 
+                        <div class="form-group col-sm"> <label for="submit"></label><button id="submit" class=" form-control button btn-secondary" (click)="addCourse();"> +  </button> </div>                          
+                    </div>        
+                    <div *ngFor="let course of student.courses">
+                        <app-add-course [course]="course">   </app-add-course>                
+                    </div>
+                </form>
+            </div>   
+            <div class="col-sm-1">              
+            </div>
+            <div class="container col-sm-4 border bg-light">                
+                <br>
+                <div> <h2> Fee Details </h2> </div>     
+
+                <table class="table table-bordered">
+                    <tr> <td scope="col">Admission Fee:</td> <td scope="col"> {{ student.admissionFeeActual }} </td></tr>
+                    <tr> <td scope="col">Course Fee:</td> <td scope="col"></td></tr>
+                    <tr> 
+                        <!-- <select [(ngModel)]="student.occupation" #occupation="ngModel" name="occupation" id="occupation" class="selectpicker form-control" required> -->
+
+                            <td scope="col">Total Fee:</td> 
+                            <div [(ngModel)]="collectedFee.totalFee" #totalFee="ngModel" name="totalFee">
+                                <td scope="col" >{{student.admissionFeeActual}} + {{student.admissionFeeActual}} </td>
+                                <!-- <td scope="col" [(ngModel)]="collectedFee.totalFee" #totalFee="ngModel" name="totalFee">{{student.admissionFeeActual}} + {{student.admissionFeeActual}} </td> -->
+                            </div>
+                        </tr>                        
+                    <tr> 
+                        <td scope="col">Fee Collected:</td> 
+                        <td scope="col">
+                            <!-- <input class="form-control" id="feeCollected" type="text" > -->
+                            <input [(ngModel)]="collectedFee.paidFee" name="paidFee" #paidFee="ngModel" id="paidFee" type="text" class="form-control" required>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td scope="col">Pay Mode:</td> 
+                        <td scope="col">
+                            
+                            <select [(ngModel)]="collectedFee.payMode" name="payMode" #payMode="ngModel" id="payMode" type="text" 
+                             class="selectpicker form-control" required>
+                                <option *ngFor = "let pay_mode of payModes">{{pay_mode}}</option>
+                            </select>                    
+                        </td>
+                    </tr>
+                    <tr>
+                        <td scope="col">Pay Year:</td> 
+                        <td scope="col">
+                            <select id="payYear" class="selectpicker form-control" 
+                            [(ngModel)]="collectedFee.payYear" name="payYear" #payYear="ngModel" required>
+                                <option *ngFor = "let pay_year of payYears">{{pay_year}}</option>
+                            </select>                    
+                        </td>
+                    </tr>
+                    <tr>
+                        <td scope="col">Pay Month:</td> 
+                        <td scope="col">
+                            <select id="payMonth" class="selectpicker form-control" required
+                            [(ngModel)]="collectedFee.payMonth" name="payMonth" #payMonth="ngModel">
+                                <option *ngFor = "let pay_month of payMonths">{{pay_month}}</option>
+                            </select>                    
+                        </td>
+                    </tr>
+                    <tr> 
+                        <td scope="col">Remarks</td> 
+                        <td scope="col">
+                            <input [(ngModel)]="collectedFee.remarks" name="remarks" #remarks="ngModel"
+                                class="form-control" id="remarks" type="text" >
+                        </td>
+                    </tr>                    
+                </table>
+                
+                <!-- <div class="row container">
+                    <div class="col-sm" *ngIf="!edit_student">               
+                        <div class="form-group">
+                            <label for="admissionFeeActual">Admission Fee</label>                        
+                            <div class="col-sm-4" *ngIf="!edit_student">               
+                                <input class="form-control" [(ngModel)]="student.admissionFeeActual" name="admissionFeeActual" #admissionFeeActual="ngModel" id="admissionFeeActual" type="text"  disabled>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                    <div class="col-sm-2" *ngIf="!edit_student">               
+                        <div class="form-group">
+                            <label for="admissionFeeCollected">Course Fee</label><small> *</small>
+                            <input [(ngModel)]="student.admissionFeeCollected" name="admissionFeeCollected" #admissionFeeCollected="ngModel" id="admissionFeeCollected" type="text" class="form-control" required>
+                            <div class="alert float-right text-danger"> <small [class.d-none]="admissionFeeCollected.valid || admissionFeeCollected.untouched">Required *</small>
+                            </div>
+                        </div>
+                    </div> -->
+
+            </div> 
+        </div>
+        
+
+
+        
+
+        
+
+    </mat-tab>
+    
+    <mat-tab label = "Document">
+        <br>
+        <!-- <section class="section-preview">
+      
+            <div class="input-group my-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+              </div>
+              <div class="custom-file">
+                <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+              </div>
+            </div>
+    
+          </section> -->
+
+        <div class="row container">               
+            <div class="col-sm-1">  
+            </div>
+
+            <!-- <section class="section-preview">
+                <div class="input-group my-3">
+                    <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+                </div>
+                <div class="custom-file">
+                    <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01">
+                    <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+                  </div>
+
+            </section> -->
+
+
+            <div class="col-sm-6 input-group my-3">  
+                <span>
+                    <label for="singleFile" class="input-group-text">Please upload ID Proof : 
+                        <input id="singleFile" type="file" class="input-group-text"/>
+                    </label>
+                </span>
+                <!-- <input id="singleFile" type="file" [fileUploadInputFor]= "fileUploadQueue"/> -->
+            </div>
+        </div>
+        <!-- <mat-file-upload-queue #fileUploadQueue [fileAlias]="'file'" [httpUrl]="'http://localhost:8180/jax-rs-jersey-application-sample'">
+            <mat-file-upload [file]="file" [id]="i" *ngFor="let file of fileUploadQueue.files; let i = index"></mat-file-upload>
+        </mat-file-upload-queue> -->
+
+    </mat-tab>
+
+    
+    <mat-tab label = "Submit" class="">
+
+        <br>
+        <div class="row container">   
+            <div class="col-sm-1">  
+            </div>
+
+            <h2>General </h2>
+        </div>
+
+        <div class="row container">   
+
+            <div class="col-sm-1">  
+            </div>
+
+            <div class="col-sm-4">   
+                <!-- <h2>General Data</h2> -->
+
+                <table class="table table-bordered container">
+                    <tbody>                        
+                        <tr> <td>First Name</td> <td> {{ student.firstName }}</td> </tr>
+                        <tr> <td>Last Name</td> <td> {{ student.lastName }} </td> </tr>
+                        <tr> <td>Mobile Number</td> <td> {{ student.mobileNumber }}</td> </tr>
+                        <tr> <td>Email</td> <td> {{ student.email }} </td> </tr>                        
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-sm-4">   
+                <table class="table table-bordered container">
+                    <tbody>
+                        <tr> <td>Parent/Guardian Name</td> <td> {{ student.gName }} </td> </tr>
+                        <tr> <td>Date of Admission</td> <td> {{ student.doj }}</td> </tr>
+                        <tr> <td>Occupation</td> <td> {{ student.occupation }}</td> </tr>
+                        <tr> <td>Status</td> <td> {{ student.status }} </td> </tr>                        
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="col-sm-4">               
+            </div>    
+
+        </div>
+
+
+        <div class="row container">   
+            <div class="col-sm-1">  
+            </div>
+
+            <div class="col-sm-4">   
+                <h2>Enrolled Courses</h2>
+                <table class="table table-bordered container">
+                    <tbody>   
+                        <tr>  <th *ngFor="let courseHeader of courseHeaders">{{courseHeader}}</th> </tr>
+                        <tr *ngFor="let course of student.courses">  
+                            <td >  {{course.courseName}} </td>                            
+                            <td >  {{course.courseBatch}} </td>                            
+                            <td >  {{course.courseFaculty}} </td>                            
+                            <td >  {{course.courseFee}} </td>        
+                        </tr>                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="row container">   
+            <div class="col-sm-1">  
+            </div>
+
+            <div class="col-sm-4">   
+                <h2>Fee Details </h2>
+                <table class="table table-bordered container">
+                    <tbody>   
+                        <tr>  <th *ngFor="let feeHeader of feeHeaders">{{feeHeader}}</th> </tr>
+                        <tr>
+                            <td >  {{collectedFee.payMonth}} </td>                            
+                            <td >  {{collectedFee.payYear}} </td>        
+                            <td >  {{collectedFee.payMode}} </td>                            
+                            <td >  {{collectedFee.totalFee}} </td>                            
+                            <td >  {{collectedFee.paidFee}} </td>                            
+                            <td >  {{collectedFee.remarks}} </td>                            
+
+                        </tr>                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="row container">   
+            <div class="col-sm-1">  
+            </div>
+
+            <div class="col-sm-4">   
+                <h2>Document(s) Uploaded </h2>
+                <table class="table table-bordered container">
+                    <tbody>   
+                        <tr *ngFor="let course of student.courses">  
+                            <td >  {{course.courseName}} </td>                            
+                            <td >  {{course.courseBatch}} </td>                            
+                            <td >  {{course.courseFaculty}} </td>                            
+                            <td >  {{course.courseFee}} </td>        
+                        </tr>                        
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="row container">
+            <div class="col-sm-1">               
+            </div>
+
+            <div class="col-sm container">   
+                <div class="form-group">
+                    <label for="comments">Comments</label>
+                    <textarea class="form-control" id="comments" [(ngModel)]='student.comments' #comments="ngModel" name="comments"></textarea>
+                </div>            
+            </div>
+        </div>
+        
+        <div class="col-sm">               
+        </div>    
+        
+        <div class="col-sm">               
+        </div>    
+        
+        <div class="col-sm">               
+        </div>   
+
+        <div class="row container">
+            <div class="col-sm-1">
+            </div>
+            <div class="col-sm">
+                <div class="form-group">
+                    <label for="Clear"></label>
+                    <button id="clear" class="form-control button btn-danger" (click)="addStudentForm.reset({});addCoursesForm.reset({})"> Clear </button>
+                </div>    
+            </div>
+    
+            <div class="col-sm">
+            </div>
+    
+            <div class="col-sm">
+            </div>    
+    
+            <div class="col-sm">
+                <div class="form-group">
+                    <small *ngIf="addStudentForm.form.invalid"> Please fill all the mandatory data</small>
+    
+                    <label for="submit"></label>
+                    <!-- [disabled]="addStudentForm.form.invalid "  -->
+                    <button  [disabled]="addStudentForm.form.invalid" id="submit" class="form-control button btn-primary"
+                    (click)="open(modalCollectAdmissionFee)"> Submit </button>
+                    <!-- (click)="addStudent();addStudentForm.reset({});routeToAdd();open(modalCollectAdmissionFee)"> Submit </button> -->
+                </div>    
+            </div>
+        </div>
+    
+
+    </mat-tab>
+
+</mat-tab-group>
+
+
+
+<ng-template #modalCollectAdmissionFee let-modal>
+    <br>
+    <div class="container-sm">
+            <h1 class="modal-title btn-outline-warning" id="modal-admission">Warning</h1>
+    </div>
+
+    <div class="container-sm">
+        <div class = "adm-fee"><h3 class="modal-title" id="modal-admission">Please collect Admission Fee.</h3></div>
+        <br>
+    </div>
+
+    <div class="row">      
+            <div class="col-sm">
+            </div>
+             <div class="col-sm">      
+                <button type="button" class=" form-control button btn-outline-success" (click)="modal.dismiss('OK');addStudent();addStudentForm.reset({});routeToAdd()"> OK </button>
+            </div>  
+            <div class="col-sm">
+            </div>  
+    </div>
+<br>
+
+</ng-template>
+
+
+
+</form>        
+
+<br>
+<br>

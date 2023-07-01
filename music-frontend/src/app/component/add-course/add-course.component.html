@@ -1,0 +1,48 @@
+
+<form #addCourseForm="ngForm">
+    <div class="row"> 
+        <div class="form-group col-sm-3"> 
+            <label for="courseName">Course Name</label><small> *</small>
+            <select [(ngModel)]="course.courseName" #courseName="ngModel" name="courseName" id="courseName"
+                class="selectpicker form-control" required>
+                <option selected></option>
+                <option>Working</option>
+                <option>Student</option>                
+                <option>Others</option>
+            </select>
+            <div class="alert float-right text-danger">
+                <small [class.d-none]="courseName.valid || courseName.untouched ">Required *</small>        
+        </div>
+
+    </div>            
+    <div class="form-group col-sm-3"> 
+        <label for="courseBatch">Batch</label><small> *</small>
+            <select [(ngModel)]="course.courseBatch" #courseBatch="ngModel" name="courseBatch" id="courseBatch"
+                class="selectpicker form-control" required>
+                <option selected></option>
+                <option>Working</option>
+                <option>Student</option>                
+                <option>Others</option>
+            </select>
+            <div class="alert float-right text-danger">
+                <small [class.d-none]="courseBatch.valid || courseBatch.untouched ">Required *</small>
+            </div>
+    </div>            
+    <div class="form-group col-sm-3"> 
+        <label for="courseFaculty">Faculty Name</label><small> *</small>
+            <input [(ngModel)]="course.courseFaculty" name="courseFaculty" #courseFaculty="ngModel" id="courseFaculty" type="text"
+                class="form-control" required>
+            <div class="alert float-right text-danger">
+                <small [class.d-none]="courseFaculty.valid || courseFaculty.untouched">Required *</small>
+            </div>
+    </div>            
+    <div class="form-group col-sm-3"> 
+        <label for="courseFee">Fee</label><small> *</small>
+            <input [(ngModel)]="course.courseFee" name="courseFee" #courseFee="ngModel" id="courseFee" type="text"
+                class="form-control" required>
+            <div class="alert float-right text-danger">
+                <small [class.d-none]="courseFee.valid || courseFee.untouched">Required *</small>
+            </div>
+   </div>         
+</div>
+</form>

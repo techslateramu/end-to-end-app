@@ -1,0 +1,223 @@
+<!-- <app-add-batch [fac]="faculty_details"></app-add-batch> -->
+
+<br>
+
+<div class="row">
+  <div class="col-sm">
+  </div>
+
+  <div class="col-sm">
+      <div *ngIf = "spinner.isLoading | async ">
+          <mat-spinner></mat-spinner>
+      </div>
+  </div>
+  
+  <div class="col-sm">
+  </div>
+
+</div>
+
+<div class="row">
+  <div class="col-sm">
+      <h1>List Employee</h1>
+  </div>
+  
+  <div class="col-sm">
+    <h2>Employee Count : {{ filteredCount }} / {{ empCount }} </h2>
+  </div>
+  
+  <div class="col-sm">
+    <div class="row">
+      <div class="col-sm">
+          <div>
+            <input #searchString class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" id='searchString'>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm">
+            <button id="emp_search" class="form-control button btn-secondary" (click)="searchFacultyData(searchString.value)"> Filter  </button>
+          </div>
+
+          <div class="col-sm">
+            <button id="emp_search" class="form-control button btn-outline-danger" (click)="searchString.value='';getAllFacultyData()"> Clear</button>
+          </div>
+
+        </div>
+
+  </div>
+  </div>
+</div>
+  
+<br>
+
+<table class="table ">
+
+    <tr class="alert alert-success">
+      <th *ngFor = "let column_name of faculty_headers">
+        {{column_name}}
+      </th>          
+    </tr>
+    
+    <tr *ngFor = "let data of faculty_details; let i = index">
+      
+      <td > {{i+1}}  </td>
+      <td > {{data.employeeType}}  </td>
+       <td > {{data.firstName}}  </td>
+       <td > {{data.lastName}}  </td>
+       <td > {{data.skill}}  </td>
+       <td > {{data.mobileNumber}}  </td>
+       <td > {{data.occupation}}  </td>
+       <td > {{data.status}}  </td>
+       
+       <td> <button id="submit" class="form-control button btn-outline-warning" (click)="loadEditFaculty(data)"> Edit </button> </td>
+       <td> <button id="paybutton" class="form-control button btn-outline-info" (click)="open(payfacultymodal, data)" > Pay  </button> </td>
+
+         
+       
+        <div class="form-group">
+          
+          <ng-template #payfacultymodal let-modal>
+           
+            <div class="modal-header">
+                <h1 class="modal-title" id="modal-basic-title">Pay Salary - {{data.firstName}} {{data.lastName}} </h1>
+                  <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+            </div>
+
+            <div class="container-sm">  <h2>Payment History - Last 3 </h2> </div>
+
+              <!-- <div> -->
+
+                <table class="table ">
+    
+                  <tr class="alert alert-success">
+                    <th *ngFor = "let column_name of pay_faculty_headers">
+                      {{column_name}}
+                    </th>          
+                  </tr>
+                  
+                 
+                  <!-- <tr *ngFor = "let data of faculty_details"></tr> -->
+                    <!-- <div *ngIf = "data.paidSalary!=null"> -->
+                      <tr *ngFor = "let paidSal of data.paidSalary.slice().reverse(); let i=index">
+                        <td *ngIf ="i < 3"> {{paidSal.payMonth + - + paidSal.payYear}}  </td>                      
+                        <td *ngIf ="i < 3"> {{paidSal.payMode}}  </td>                      
+                        <td *ngIf ="i < 3"> {{paidSal.currentSalary}}  </td>                      
+                        <td *ngIf ="i < 3"> {{paidSal.paidSalary}}  </td>                      
+                        <td *ngIf ="i < 3"> {{paidSal.paidDate | date: 'dd-MMM-yyyy'}}  </td>                      
+                        <td *ngIf ="i < 3"> {{paidSal.loggedInUser}}  </td>                      
+                      <!-- </tr>   -->
+                    <!-- </div> -->
+                </table>
+
+              <!-- </div> -->
+
+
+
+       
+              <form #payFacultyForm="ngForm">
+
+              <div class="row container-sm modal-body">    
+                <div class="container-sm">  <h2>Current Payment </h2> </div>
+              
+              <div class="col">    
+
+                  <h3>
+                    <label for="payMonth">Pay Month *</label>
+                    <select [(ngModel)]="efac.payMonth" name="payMonth" #payMonth="ngModel" 
+                    id="payMonth" class="selectpicker form-control" required>
+                        <option *ngFor = "let month of months">{{month}}</option>
+                    </select>
+
+                    <div class="alert float-right text-danger">
+                      <small [class.d-none]="payMonth.valid || payMonth.untouched ">Required *</small>
+                    </div>
+
+                  </h3>
+              </div>
+
+              <div class="col">    
+
+                <h3>
+                  <label for="payYear">Pay Year *</label>
+                  <select [(ngModel)]="efac.payYear" name="payYear" #payYear="ngModel" 
+                  id="payYear" class="selectpicker form-control" value="{{ currentYear }}" required>
+                      <option *ngFor = "let year of years">{{year}}</option>
+                  </select>
+
+                  <div class="alert float-right text-danger">
+                    <small [class.d-none]="payYear.valid || payYear.untouched ">Required *</small>
+                  </div>
+
+                </h3>
+            </div>
+
+              <div class="col">    
+                    <h3>
+                    <label for="payMode">Pay Mode *</label>
+                    <select [(ngModel)]="efac.payMode" name="paymode" #payMode="ngModel" 
+                    id="payMode" class="selectpicker form-control" required>
+                      <option *ngFor = "let pay_mode of payModes">{{pay_mode}}</option>
+                    </select>
+                    
+                    <div class="alert float-right text-danger">
+                      <small [class.d-none]="payMode.valid || payMode.untouched ">Required *</small>
+                    </div>
+                    
+                  </h3>
+              </div>
+
+            </div>
+            <div class=" row container-sm">    
+              <div class="col">    
+
+                    <h3>
+                      <label for="actualsalary">Actual Salary *</label>
+                      <input name="actualsalary" id="actualsalary" type="text"
+                      class="form-control" value="{{ data.salary }} " disabled>
+                    </h3>
+              </div>
+              
+              <div class="col">    
+                    <h3>
+                      <label for="paidSalary">Paid Salary * </label>
+                      <input [(ngModel)]="efac.paidSalary"  #paidSalary="ngModel"  name="paidSalary" 
+                      id="paidSalary" type="number" name="paidSalary" value = "" class="form-control" required>
+                 
+                      <div class="alert float-right text-danger">
+                        <small [class.d-none]="paidSalary.untouched || paidSalary.valid">Should be a number *</small>
+                      </div>
+                      
+                    </h3>
+              </div>         
+
+            </div>
+            <!-- <span class="alert alert-warning" *ngIf='paidSalary!=actualsalary'> Actual salary vs Paid Salary not matches  </span> -->
+            
+            <div class="modal-footer">              
+              
+
+                  <div class="col">
+                    <small *ngIf="payFacultyForm.form.invalid"> Click to Cancel  </small>
+                    <input type="button" value="Cancel" style="float: left;" class="btn btn-outline-danger" (click)="modal.dismiss('Cancel click')">
+                  </div>
+                 
+                  <div class="col">
+                      <span class="alert alert-success" *ngIf='!isErrorPaidSalary && paidSalaryMessage!=""'>{{paidSalaryMessage}} </span>
+                      <span class="alert alert-danger" *ngIf='isErrorPaidSalary && paidSalaryMessage!="" '>{{paidSalaryMessage}} </span>
+                  </div>
+                  
+                  <div class="col">
+                    <small *ngIf="payFacultyForm.form.invalid"> Fill mandatory data</small>
+                    <button [disabled]="payFacultyForm.form.invalid " id="submit" type="button" class="btn btn-outline-info" (click)="payFaculty(data)" >Pay Salary</button>                    
+                  </div>
+
+          </div>
+        </form>
+
+        </ng-template>
+        </div>
+
+      </tr>      

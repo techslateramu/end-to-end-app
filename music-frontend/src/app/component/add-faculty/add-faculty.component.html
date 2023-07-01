@@ -1,0 +1,260 @@
+<br>
+<div class="row container-sm">
+    <h1> {{pageHeader}}  </h1>
+</div>
+
+<br>
+
+<form #addFacultyForm="ngForm">
+  
+    <div class="row">
+     
+        <div class="col-sm">
+            
+            <div class="form-group">
+                <label for="employeeType">Employee Type</label> <small> *</small>
+                <select [(ngModel)]="fac.employeeType" #employeeType="ngModel" name="employeeType" id="employeeType"
+                    class="selectpicker form-control" required>
+                    <option selected></option>
+                    <option *ngFor = "let f of facultyType"> {{ f }}</option>                    
+                </select>
+                <div class="alert float-right text-danger">
+                    <small [class.d-none]="employeeType.valid || employeeType.untouched ">Required *</small>
+                </div>
+            </div>
+
+            
+            <div class="form-group">
+                <label for="firstName">First Name</label><small> *</small>
+                <input [(ngModel)]="fac.firstName" name="firstName" #firstName="ngModel" id="firstName" type="text"
+                    class="form-control" required>
+                <div class="alert float-right text-danger">
+                    <small [class.d-none]="firstName.valid || firstName.untouched">Required *</small>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="lastName">Last Name</label><small> *</small>
+                <input [(ngModel)]="fac.lastName" name="lastName" #lastName="ngModel" id="lastName" type="text"
+                    class="form-control" required>
+                <div class="alert float-right text-danger">
+                    <small [class.d-none]="lastName.valid || lastName.untouched">Required *</small>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="mobileNumber">Mobile Number</label><small> *</small>
+                <input [(ngModel)]="fac.mobileNumber" name="mobileNumber" #mobileNumber="ngModel" id="mobileNumber"
+                    type="tel" pattern="^\d{10}$" class="form-control" required>
+                <div class="alert float-right text-danger">
+                    <small [class.d-none]="mobileNumber.valid || mobileNumber.untouched">Should be 10 digit
+                        number*</small>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email Id</label><small> *</small>
+                <input [(ngModel)]="fac.email" name="email" #email="ngModel" id="email" type="email"
+                    pattern="^\S+@\S+\.\S+$" class="form-control" required>
+                <div class="alert float-right text-danger">
+                    <small [class.d-none]="email.valid || email.untouched">Valid email id *</small>
+                </div>
+            </div>            
+
+            <label for="occupation">Occupation</label><small> *</small>
+            <select [(ngModel)]="fac.occupation" #occupation="ngModel" name="occupation" id="occupation"
+                class="selectpicker form-control" required>
+                <option selected></option>
+                <option>Working</option>
+                <option>Student</option>
+                <option>Musician</option>
+                <option>Others</option>
+            </select>
+            <div class="alert float-right text-danger">
+                <small [class.d-none]="occupation.valid || occupation.untouched ">Required *</small>
+            </div>
+
+        </div>
+
+        <div class="col-sm" *ngIf="fac.employeeType=='Faculty'">
+
+            <div class="class form-group">
+
+                <div class="form-group">
+                    <label for="preferredDays">Preferred Days</label><small> *</small>
+                    <select [(ngModel)]="fac.preferredDays" #preferredDays="ngModel" name="preferredDays" id="preferredDays"
+                    class="selectpicker form-control" multiple required>
+                        <option>Monday</option>
+                        <option>Tuesday</option>
+                        <option>Wednesday</option>
+                        <option>Thursday</option>
+                        <option>Friday</option>
+                        <option>Saturday</option>
+                        <option>Sunday</option>
+                    </select>
+                </div>
+                <div class="alert float-right text-danger" *ngIf="fac.employeeType=='Faculty'">
+                    <small [class.d-none]="preferredDays.valid || preferredDays.untouched ">Required *</small>
+                </div>
+
+            </div>
+            <label for="preferredTime">Preferred Time</label><small> *</small>
+            <select [(ngModel)]="fac.preferredTime" #preferredTime="ngModel" name="preferredTime" id="preferredTime"
+                class="selectpicker form-control" multiple required>
+                <option>Mornings</option>
+                <option>Evenings</option>
+            </select>
+            <div class="alert float-right text-danger" *ngIf="fac.employeeType=='Faculty'">
+                <small [class.d-none]="preferredTime.valid || preferredTime.untouched ">Required *</small>
+            </div>
+
+          
+            <label for="skill">Skill</label><small> *</small>
+            <select [(ngModel)]="fac.skill" #skill="ngModel" name="skill" id="skill"
+                class="selectpicker form-control" multiple required>
+                <option>Vocal</option>
+                <option>Flute</option>
+                <option>Violin</option>
+                <option>Mridangam</option>
+                <option>Veena</option>
+                <option>Tabla</option>
+                <option>Bharathanatyam</option>
+                <option>Kuchipudi</option>>
+            </select>
+            <div class="alert float-right text-danger" *ngIf="fac.employeeType=='Faculty'">
+                <small [class.d-none]="skill.valid || skill.untouched ">Required *</small>
+            </div>
+
+        </div>
+
+        <div class="col-sm">
+            
+            <div class="form-group">
+                <label for="doj">Date of Joining</label><small> *</small>
+                <input [(ngModel)]="fac.doj" name="doj" #doj="ngModel" id="doj" type="date" placeholder="MM/DD/YYYY"
+                    class="form-control" required>
+                <div class="alert float-right text-danger">
+                    <small [class.d-none]="doj.valid || doj.untouched">Required *</small>
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label for="salary">Salary (Per Month)</label><small> *</small>
+                <input [(ngModel)]="fac.salary" name="salary" #salary="ngModel" id="salary" type="number"
+                    class="form-control" required>
+                <div class="alert float-right text-danger">
+                    <small [class.d-none]="salary.valid || salary.untouched">Required *</small>
+                </div>
+            </div>
+
+            
+
+            <label for="status">Status</label><small> *</small>
+            <select [(ngModel)]="fac.status" #status="ngModel" name="status" id="status"
+                class="selectpicker form-control" required>
+                <option selected>Active</option>
+                <option>In-Active</option>
+            </select>
+            <div class="alert float-right text-danger">
+                <small [class.d-none]="status.valid || status.untouched ">Required *</small>
+            </div>
+                       
+        </div>
+
+        
+        <div class="col-sm">
+            <label for="comments">Comments</label>
+            <textarea class="form-control" id="comments" [(ngModel)]='fac.comments' #comments="ngModel" name="comments"></textarea>            
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-sm">
+        </div>
+
+        <div class="col-sm">
+        </div>
+
+        <div class="col-sm">
+            <div *ngIf = "spinner.isLoading | async ">
+                <mat-spinner></mat-spinner>
+            </div>
+        </div>
+        
+        <div class="col-sm">
+        </div>
+
+    </div>
+
+    <div class="row">
+        <div class="col-sm">
+        </div>
+    
+        <div class="col-sm">
+            <div class="form-group">
+            
+                <!-- <span class="alert alert-success" *ngIf='!isFacultySaveError && facultySaveMessage!=""'>{{facultySaveMessage}} </span>
+                <span class="alert alert-danger" *ngIf='isFacultySaveError && facultySaveMessage!="" '>{{facultySaveMessage}} </span> -->
+            </div>
+        </div>
+
+        <div class="col-sm">
+        </div>
+    </div>
+
+    <div class="row">
+      
+        <div class="col-sm">
+            <div class="form-group">
+                <label for="Clear"></label>
+                <button id="clear" class="form-control button btn-danger" (click)="addFacultyForm.reset({}); routeToAdd()"> Clear </button>
+            </div>    
+        </div>
+
+        <div class="col-sm">
+        </div>
+
+        <div class="col-sm">
+        </div>    
+
+
+          
+        <!-- <div class="col-sm">
+                <div class="form-group text-success" *ngIf=!isError ng-cloak> Save success</div>
+            </div>    
+
+            <div class="col-sm">
+                <div class="form-group text-danger" *ngIf=isError ng-cloak> Error while saving</div>
+            </div>     -->
+        
+        <div class="col-sm">
+            <div class="form-group">
+                <small *ngIf="addFacultyForm.form.invalid"> Please fill all the mandatory data</small>
+
+                <label for="submit"></label>
+                <button [disabled]="addFacultyForm.form.invalid " id="submit" class="form-control button btn-primary"
+                (click)="addFaculty();routeToAdd()"> Submit </button>                
+
+            </div>    
+        </div>
+    </div>
+
+   
+
+</form>
+<br>
+<br>
+<!-- 
+Spinner
+<mat-spinner></mat-spinner>
+Another Spinner
+ <mat-progress-spinner
+      diameter="60"
+      [value]="50"
+      mode="determinate">
+      </mat-progress-spinner>
+
+Spinner Ends
+  -->

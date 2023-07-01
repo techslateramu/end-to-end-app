@@ -1,0 +1,41 @@
+image: "node:latest" 
+
+stages:
+  - build
+  - package
+
+before_script:
+  - npm install --force
+
+build:
+  stage: build 
+  image: node:latest
+  only:
+    - master
+  script:
+    - npm run-script build
+  artifacts:
+    paths:
+      - dist/
+    expire_in: 2 hours
+  cache:
+    paths:
+      - node_modules/
+
+docker-build:
+  image: docker:stable
+  only : 
+    - master
+  stage: package
+  services:
+    - docker:dind
+  before_script:
+    - docker ps
+  script:
+    #todo - password encryption
+    - docker login -u $USERNAME -p $PASSWORD registry.gitlab.com
+    - docker build -t registry.gitlab.com/linuxramu/music-frontend:1.0 -f Dockerfile .
+    - docker tag registry.gitlab.com/linuxramu/music-frontend:1.0 registry.gitlab.com/linuxramu/music-frontend:latest
+    - docker push registry.gitlab.com/linuxramu/music-frontend
+  dependencies:
+    - build

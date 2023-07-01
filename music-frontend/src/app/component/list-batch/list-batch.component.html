@@ -1,0 +1,71 @@
+<br>
+
+<div class="row">
+  <div class="col-sm">
+  </div>
+
+  <div class="col-sm">
+      <div *ngIf = "spinner.isLoading | async ">
+          <mat-spinner></mat-spinner>
+      </div>
+  </div>
+  
+  <div class="col-sm">
+  </div>
+
+</div>
+
+<div class="row">
+  <div class="col-sm">
+      <h1>List Batch</h1>
+  </div>
+  
+  <div class="col-sm">
+    <h2>Batch Count : {{ filteredBatchCount }} / {{ batchCount }} </h2>
+  </div>
+  
+  <div class="col-sm">
+    <div class="row">
+      <div class="col-sm">
+          <div>
+            <input #searchString class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" id='searchString'>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm">
+            <button id="batch_search" class="form-control button btn-secondary" (click)="searchBatchData(searchString.value)"> Filter  </button>
+          </div>
+
+          <div class="col-sm">
+            <button id="emp_search" class="form-control button btn-outline-danger" (click)="searchString.value='';getAllBatchData()"> Clear</button>
+          </div>
+
+        </div>
+
+  </div>
+  </div>
+</div>
+  
+<br>
+
+<table class="table">
+
+    <tr class="alert alert-success">
+      <th *ngFor = "let column_name of batch_headers">
+        {{column_name}}
+      </th>          
+    </tr>
+    
+    <tr *ngFor = "let data of batch_details; let i = index">      
+        <td > {{i+1}}  </td>
+        <td > {{data.batchName}}  </td>
+        <td > {{data.batchType}}  </td>
+        <td > {{data.batchFaculty}}  </td>
+        <td > {{data.batchDays}}  </td>
+        <td > {{data.batchTime}}  </td>
+        <td > {{data.batchStartDate}}  </td>
+        <td > {{data.batchStatus}}  </td>       
+        <td> <button id="submit" class="form-control button btn-outline-warning" (click)="loadEditBatch(data)"> Edit </button> </td>
+      </tr>      
+</table>

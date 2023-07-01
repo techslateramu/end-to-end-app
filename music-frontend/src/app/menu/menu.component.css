@@ -1,0 +1,10 @@
+.nav {
+    float: left; 
+    padding: 20px;
+    min-height: 170px;
+    box-sizing: border-box;
+}
+
+a {
+    color: white; 
+}
