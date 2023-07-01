@@ -18,6 +18,7 @@ jobs:
 
       - name: Build and package
         run: mvn package -B
+        working-directory: music-backend
 
       - name: Archive artifacts
         uses: actions/upload-artifact@v2
