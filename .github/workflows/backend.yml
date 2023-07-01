@@ -1,0 +1,26 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      # - name: Set up Docker
+      #   uses: docker/setup-docker@v1
+
+      - name: Build and package
+        run: mvn package -B
+
+      - name: Archive artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: packaged-jar
+          path: target/*.jar
