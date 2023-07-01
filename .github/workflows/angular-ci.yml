@@ -23,9 +23,11 @@ jobs:
 
       - name: Install Angular CLI
         run: npm install -g @angular/cli
+        working-directory: music-frontend
 
       - name: Install dependencies
         run: npm install
+        working-directory: music-frontend
 
       - name: Build Angular project
         run: npm run build
