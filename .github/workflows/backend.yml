@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: Music-Backend
 
 on:
   push:
@@ -25,3 +25,4 @@ jobs:
         with:
           name: packaged-jar
           path: target/*.jar
+          working-directory: music-backend
